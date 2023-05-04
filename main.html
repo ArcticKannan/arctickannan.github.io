@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="body.css">
+    <!-- <script src="app.js"></script> -->
+    <!-- Commenting becuse its not working. -->
+  </head>
+  <body>
+    <!--Unnecessary divs WARNING-->
+    <div class="div-score">
+      <p id="userScore">You: </p>                                 <!--Score text-->
+      <p id="computerScore" style="width:200px;">Computer: </p>
+    </div>
+    <div class="buttons-container">
+      <button class="rock" id="rock" onclick="            
+        //Storing the return value of the function in 'result' variable to pass it onto the updateScore function
+        result = game('rock', 'scissors', 'paper');   
+        updateScore(result);
+      ">Rock</button>
+
+      <button class="paper" id="paper" onclick="
+        result = game('paper', 'rock', 'scissors');    
+        updateScore(result);  
+      ">Paper</button>
+
+      <button class="scissors" id="scissors" onclick="
+        result = game('scissors', 'paper', 'rock');
+        updateScore(result);
+      ">Scissors</button>
+    </div>
+    <div class="game-container">
+      <h1 class="user">You</h1>
+      <h1 class="computer">Computer</h1>
+    </div>
+    <div class="game-container">
+      <h1 class="user" id="user">-</h1>
+      <h1 class="computer" id="computer">-</h1>
+      <h1 class="result" id="display-result">-</h1>
+    </div>
+  </body>
+  <script>
+    // Variables
+    const userScore = document.getElementById('userScore');                  //
+    const user = document.getElementById('user');                            //
+    const computer = document.getElementById('computer');                    //Getting the elements and storing them
+    const computerScore = document.getElementById('computerScore');          //
+    const displayResult = document.getElementById('display-result');         //
+    let result = 0;     // For storing wins, lose and ties.
+    let uscore = 0;     // For storing user score.
+    let cscore = 0;     // For storing computer score.
+
+    // Functions
+
+    //Picking the computer's move.
+    function pickComputerMove() {
+      //Pick random number between 1 and 0
+      let computerMove = Math.random();       
+      // Dividing 0 --> 1 into 3 parts and assigning each part 1 move
+
+      // 0 >----rock----|----paper----|----scissors----> 1
+
+      if (computerMove >= 0 && computerMove < 1/3) {
+        computerMove = 'rock';
+      } else if (computerMove >= 1/3 && computerMove < 2/3) {
+        computerMove = 'paper';
+      } else if (computerMove >= 2/3 && computerMove <= 1) {
+        computerMove = 'scissors';
+      }
+      //Using the same variable to store the move (Don't know why)
+      return computerMove;
+    }
+    
+    //Parameters provided by the 'onclick' event of buttons.
+    function game(usrMove, win, lose) {
+      //Calling the previous function and storing the 'return' value in this variable.
+      const computerMove = pickComputerMove(); 
+      //Comparing computer move with the values provided by the 'onclick' event of buttons.
+      if (computerMove === win) {     
+        //Editing the result display.
+        displayResult.innerHTML = "You Won!";
+        //Editing user and computer move with the usrMove value provided by the button and computerMove value from the previous function.
+        user.innerHTML = `${usrMove}`;
+        computer.innerHTML = `${computerMove}`;
+        //This variable is just for registering the win for updating the score becuase I dont know any better way.
+        result = 1;
+        //Same things for the 'lose' event.
+      } else if (computerMove === lose) {
+        displayResult.innerHTML = "You Lost!";
+        user.innerHTML = `${usrMove}`;
+        computer.innerHTML = `${computerMove}`;
+        result = -1;
+
+        //For tie, I just checked if user move and computermove were equal. Rest are the same.
+      } else if (computerMove === usrMove) {
+        displayResult.innerHTML = "Tie";
+        user.innerHTML = `${usrMove}`;
+        computer.innerHTML = `${computerMove}`;        
+        result = 0;
+      }
+      //Returning the result for updating the score.
+      return result;
+    }
+    
+    //The result parameter is provided by the button after running the previous function.
+    function updateScore(result) {
+      //These are some basic comparing.
+      if (result === 1) {
+        //Add userscore and decrease computer score if won.
+        uscore++;
+        cscore--;
+        //Update score with user score and computer score.
+        userScore.innerHTML = `You: ${uscore}`;
+        computerScore.innerHTML = `Computer: ${cscore}`;
+      } else if (result === -1) {
+        //Vice-versa if lost.
+        uscore--;
+        cscore++;
+        userScore.innerHTML = `You: ${uscore}`;
+        computerScore.innerHTML = `Computer: ${cscore}`;
+      } else if (result === 0) {
+        //If tie, add 1 to both.
+        uscore++;
+        cscore++;
+        userScore.innerHTML = `You: ${uscore}`;
+        computerScore.innerHTML = `Computer: ${cscore}`;
+      }
+    }
+  </script>
+</html>
