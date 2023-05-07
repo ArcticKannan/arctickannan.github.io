@@ -40,6 +40,7 @@ p {
   margin-left:510px;
 }
 
+.reset:hover,
 .rock:hover,
 .paper:hover,
 .scissors:hover {
@@ -47,6 +48,7 @@ p {
   color:black;
 }
 
+.reset:active,
 .rock:active,
 .paper:active,
 .scissors:active {
@@ -76,4 +78,20 @@ p {
   width:200px;
   padding-right:20px;
   text-align: center;
+}
+
+.reset {
+  position:absolute;
+  width:90px;
+  height:40px;
+  color:white;
+  font-size:20px;
+  background-color:transparent;
+  border:white;
+  border-style:solid;
+  border-radius:7px;
+  left:620px;
+  top:400px;
+  cursor:pointer;
+  transition: all 0.25s;
 }

@@ -14,12 +14,11 @@
     </div>
     <div class="buttons-container">
       <button class="rock" id="rock" onclick="            
-        //Storing the return value of the function in 'result' variable to pass it onto the updateScore function
         game('rock', 'scissors', 'paper');
       ">Rock</button>
 
       <button class="paper" id="paper" onclick="
-        game('paper', 'rock', 'scissors');
+        game('paper', 'rock', 'scissors'); 
       ">Paper</button>
 
       <button class="scissors" id="scissors" onclick="
@@ -33,7 +32,10 @@
     <div class="game-container">
       <h1 class="user" id="user">-</h1>
       <h1 class="computer" id="computer">-</h1>
-      <h1 class="result" id="display-result">-</h1>
+      <h1 class="result" id="display-result" style="margin-left:-10px;">-</h1>
+      <button class="reset" onclick="
+        location.reload();
+      ">Reset</button>
     </div>
   </body>
   <script>
@@ -43,7 +45,7 @@
     const computer = document.getElementById('computer');                    //Getting the elements and storing them
     const computerScore = document.getElementById('computerScore');          //
     const displayResult = document.getElementById('display-result');         //
-    const score = {
+    let score = {
       user: 0,
       computer: 0
     }
@@ -90,6 +92,7 @@
         computer.innerHTML = `${computerMove}`;
         score.user--;
         score.computer++;
+
         //For tie, I just checked if user move and computermove were equal. Rest are the same.
       } else if (computerMove === usrMove) {
         displayResult.innerHTML = "Tie";
